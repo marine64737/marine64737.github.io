@@ -36,4 +36,4 @@ async function findAll() {
 }
 
 // 실행
-abc();
+findAll();
