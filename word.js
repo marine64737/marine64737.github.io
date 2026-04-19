@@ -35,5 +35,43 @@ async function findAll() {
     }
 }
 
+async function saveWord() {
+    const kanji = document.getElementById('kanji').value;
+    const reading = document.getElementById('reading').value;
+    const meaning = document.getElementById('meaning').value;
+
+    if(!kanji || !reading || !meaning) {
+        alert("모든 칸을 채워주세요!");
+        return;
+    }
+
+    const newWord = { kanji, reading, meaning };
+
+    try {
+        const response = await fetch(`https://arguably-harmonics-swab.ngrok-free.dev/word/save`, { // API 저장 경로에 맞게 수정
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newWord)
+        });
+
+        if (response.ok) {
+            alert("저장 성공!");
+            // 입력칸 비우기
+            document.getElementById('kanji').value = '';
+            document.getElementById('reading').value = '';
+            document.getElementById('meaning').value = '';
+            // 목록 새로고침
+            abc();
+        } else {
+            alert("저장 실패 (서버 오류)");
+        }
+    } catch (e) {
+        console.error("저장 중 에러:", e);
+        alert("서버와 통신할 수 없습니다.");
+    }
+}
+
 // 실행
 findAll();
