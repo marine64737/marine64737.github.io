@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Word</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        nav { background-color: #04fff2; font-weight: bold; padding: 10px; text-align: left; margin-bottom: 40px;}
+        nav a { color: black; margin: 0 15px; text-decoration: none; font-size: 18px; padding: 10px;}
+        nav a:hover {  background-color: #ffcc00; padding: 10px;}
+        h1, h2 {
+            color: #333;
+        }
+        .profile{
+            display: flex;
+            align-items: center;
+        }
+        .profile img{
+            /*border-radius: 60%;*/
+            width: 240px;
+            margin-right: 20px;
+        }
+        table{
+            border-collapse: collapse;
+        }
+        table, td, th{
+            border:1px solid #bbb;
+        }
+        td, th{
+            padding: 10px;
+            text-align: center;
+        }
+        form{
+            margin-top: 30px;
+        }
+        input, textarea{
+            width: 300px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Word</h1>
+    <table border="1">
+    <thead>
+        <tr>
+            <th>한자 (Kanji)</th>
+            <th>읽기 (Reading)</th>
+            <th>의미 (Meaning)</th>
+        </tr>
+    </thead>
+    <tbody id="word-list">
+    </tbody>
+</table>
+
+<script src="script.js"></script>
+
+</body>
+</html>
