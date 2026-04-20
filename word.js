@@ -85,6 +85,7 @@ async function saveWord() {
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
             // 목록 새로고침
+            updateWordCount();
             findAll();
         } else {
             alert("저장 실패 (서버 오류)");
