@@ -62,6 +62,12 @@ async function saveWord() {
             body: JSON.stringify(newWord)
         });
 
+        if (response.status === 400) {
+            const errorMsg = await response.text();
+            alert(errorMsg); // "이미 등록된 단어입니다." 출력
+            return;
+        }
+        
         if (response.ok) {
             //alert("저장 성공!");
             // 입력칸 비우기
