@@ -1,6 +1,6 @@
 async function findAll() {
     // 1. API 주소 설정 (절대 경로 또는 상대 경로)
-    const uri1 = "https://arguably-harmonics-swab.ngrok-free.dev/word/all/shuffled"; 
+    const uri1 = "https://arguably-harmonics-swab.ngrok-free.dev/word/all/shuffled";
     const listContainer = document.getElementById('word-list');
 
     try {
@@ -9,7 +9,6 @@ async function findAll() {
     'ngrok-skip-browser-warning': 'any'
   }
 });
-        
         if (!response.ok) {
             throw new Error('데이터를 불러오는 데 실패했습니다.');
         }
@@ -37,6 +36,14 @@ async function findAll() {
         console.error("Error:", error);
         listContainer.innerHTML = '<tr><td colspan="3">불러오기 실패</td></tr>';
     }
+}
+
+async function updateWordCount() {
+    const response = await fetch('https://arguably-harmonics-swab.ngrok-free.dev/word/total', {
+        headers: { 'ngrok-skip-browser-warning': 'any' }
+    });
+    const count = await response.json();
+    document.getElementById('total-count').innerText = `총 ${count}개의 단어 등록.`;
 }
 
 async function saveWord() {
@@ -88,5 +95,6 @@ async function saveWord() {
     }
 }
 
+updateWordCount();
 // 실행
 findAll();
