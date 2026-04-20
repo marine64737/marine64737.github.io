@@ -65,6 +65,9 @@ async function saveWord() {
         if (response.status === 400) {
             const errorMsg = await response.text();
             alert(errorMsg); // "이미 등록된 단어입니다." 출력
+            document.getElementById('kanji').value = '';
+            document.getElementById('reading').value = '';
+            document.getElementById('meaning').value = '';
             return;
         }
         
