@@ -39,7 +39,7 @@ async function findAll() {
 }
 
 async function updateWordCount() {
-    const response = await fetch('https://arguably-harmonics-swab.ngrok-free.dev/word/total', {
+    const response = await fetch("https://arguably-harmonics-swab.ngrok-free.dev/word/total", {
         headers: { 'ngrok-skip-browser-warning': 'any' }
     });
     const count = await response.json();
