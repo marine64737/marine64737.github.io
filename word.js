@@ -27,7 +27,7 @@ async function findAll() {
             row.innerHTML = `
                 <td style="font-size: 48px;">${word.kanji}</td>
                 <td>${word.reading}</td>
-                <td>${word.meaning}</td>
+                <td style="text-align: left;">${word.meaning}</td>
             `;
             
             listContainer.appendChild(row);
