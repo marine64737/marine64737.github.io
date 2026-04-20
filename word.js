@@ -25,10 +25,10 @@ async function findAll() {
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             row.innerHTML = `
                 <td style="font-size: 48px;">${word.kanji}</td>
-                <td><span class="hidden">${word.reading}</span>
+                <td><span class="display: none;">${word.reading}</span>
                 <button onclick="revealCell(this)">보기</button></td>
                 <td style="text-align: left;">
-                <span class="hidden">${word.meaning}</span>
+                <span class="display: none;">${word.meaning}</span>
                 <button onclick="revealCell(this)">보기</button></td>
             `;
             
@@ -103,7 +103,7 @@ function revealCell(btn) {
     const content = btn.previousElementSibling;
     
     // 2. 숨김 클래스 제거
-    content.classList.remove('hidden');
+    content.style.display = 'inline';
     
     // 3. 누른 버튼만 삭제
     btn.remove();
