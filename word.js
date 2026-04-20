@@ -25,7 +25,7 @@ async function findAll() {
             
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             row.innerHTML = `
-                <td style="font-size: 20px;">${word.kanji}</td>
+                <td style="font-size: 48px;">${word.kanji}</td>
                 <td>${word.reading}</td>
                 <td>${word.meaning}</td>
             `;
