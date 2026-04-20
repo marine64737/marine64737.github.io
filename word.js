@@ -56,6 +56,7 @@ async function saveWord() {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'any'
             },
             body: JSON.stringify(newWord)
         });
@@ -67,7 +68,7 @@ async function saveWord() {
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
             // 목록 새로고침
-            abc();
+            findAll();
         } else {
             alert("저장 실패 (서버 오류)");
         }
