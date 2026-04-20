@@ -1,10 +1,10 @@
 async function findAll() {
     // 1. API 주소 설정 (절대 경로 또는 상대 경로)
-    const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/all/shuffled"; 
+    const uri1 = "https://arguably-harmonics-swab.ngrok-free.dev/word/all/shuffled"; 
     const listContainer = document.getElementById('word-list');
 
     try {
-        const response = await fetch(uri,{
+        const response = await fetch(uri1,{
   headers: {
     'ngrok-skip-browser-warning': 'any'
   }
@@ -40,6 +40,7 @@ async function findAll() {
 }
 
 async function saveWord() {
+    const uri2 =  "https://arguably-harmonics-swab.ngrok-free.dev/word/save";
     const kanji = document.getElementById('kanji').value;
     const reading = document.getElementById('reading').value;
     const meaning = document.getElementById('meaning').value;
@@ -52,7 +53,7 @@ async function saveWord() {
     const newWord = { kanji, reading, meaning };
 
     try {
-        const response = await fetch(`https://arguably-harmonics-swab.ngrok-free.dev/word/save`, { // API 저장 경로에 맞게 수정
+        const response = await fetch(uri2, { // API 저장 경로에 맞게 수정
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
