@@ -63,7 +63,7 @@ async function saveWord() {
         });
 
         if (response.ok) {
-            alert("저장 성공!");
+            //alert("저장 성공!");
             // 입력칸 비우기
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
