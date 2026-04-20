@@ -4,7 +4,10 @@ async function findAll() {
     const listContainer = document.getElementById('word-list');
 
     try {
-        const response = await fetch(uri);
+        const response = await fetch(uri,
+                                    headers: {
+    'ngrok-skip-browser-warning': 'any'
+  });
         
         if (!response.ok) {
             throw new Error('데이터를 불러오는 데 실패했습니다.');
