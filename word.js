@@ -25,8 +25,11 @@ async function findAll() {
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             row.innerHTML = `
                 <td style="font-size: 48px;">${word.kanji}</td>
-                <td>${word.reading}</td>
-                <td style="text-align: left;">${word.meaning}</td>
+                <td><span class="hidden">${word.reading}</span>
+                <button onclick="revealCell(this)">보기</button></td>
+                <td style="text-align: left;">
+                <span class="hidden">${word.meaning}</span>
+                <button onclick="revealCell(this)">보기</button></td>
             `;
             
             listContainer.appendChild(row);
@@ -94,6 +97,16 @@ async function saveWord() {
         console.error("저장 중 에러:", e);
         alert("서버와 통신할 수 없습니다.");
     }
+}
+function revealCell(btn) {
+    // 1. 버튼 바로 앞에 있는 요소(span)를 찾음
+    const content = btn.previousElementSibling;
+    
+    // 2. 숨김 클래스 제거
+    content.classList.remove('hidden');
+    
+    // 3. 누른 버튼만 삭제
+    btn.remove();
 }
 
 updateWordCount();
