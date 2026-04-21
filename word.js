@@ -1,10 +1,10 @@
 async function findAll() {
     // 1. API 주소 설정 (절대 경로 또는 상대 경로)
-    const uri1 = "https://arguably-harmonics-swab.ngrok-free.dev/word/all/shuffled";
+    const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/all/shuffled";
     const listContainer = document.getElementById('word-list');
 
     try {
-        const response = await fetch(uri1,{
+        const response = await fetch(uri,{
   headers: {
     'ngrok-skip-browser-warning': 'any'
   }
@@ -25,7 +25,7 @@ async function findAll() {
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             row.innerHTML = `
                 <td style="font-size: 48px;">${word.kanji}</td>
-                <td><span class="hidden">${word.reading}</span>
+                <td><span style="font-size: 20px;" class="hidden">${word.reading}</span>
                 <button onclick="revealCell(this)">보기</button></td>
                 <td style="text-align: left;">
                 <span class="hidden">${word.meaning}</span>
@@ -50,7 +50,7 @@ async function updateWordCount() {
 }
 
 async function saveWord() {
-    const uri2 =  "https://arguably-harmonics-swab.ngrok-free.dev/word/save";
+    const uri =  "https://arguably-harmonics-swab.ngrok-free.dev/word/save";
     const kanji = document.getElementById('kanji').value;
     const reading = document.getElementById('reading').value;
     const meaning = document.getElementById('meaning').value;
@@ -63,7 +63,7 @@ async function saveWord() {
     const newWord = { kanji, reading, meaning };
 
     try {
-        const response = await fetch(uri2, { // API 저장 경로에 맞게 수정
+        const response = await fetch(uri, { // API 저장 경로에 맞게 수정
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -87,14 +87,60 @@ async function saveWord() {
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
-            // 목록 새로고침
             updateWordCount();
-            findAll();
         } else {
             alert("저장 실패 (서버 오류)");
         }
     } catch (e) {
         console.error("저장 중 에러:", e);
+        alert("서버와 통신할 수 없습니다.");
+    }
+}
+async function checkWord() {
+    const uri =  "https://arguably-harmonics-swab.ngrok-free.dev/word/check";
+    const kanji = document.getElementById('kanji').value;
+    const reading = document.getElementById('reading').value;
+
+    if(!kanji && !reading) {
+        alert("단어를 입력해주세요!");
+        return;
+    }
+
+    if (kanji === "") kanji = null;
+    if (reading === "") reading = null;
+    const newWord = { kanji, reading, null };
+
+    try {
+        const response = await fetch(uri, { // API 저장 경로에 맞게 수정
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'any'
+            },
+            body: JSON.stringify(newWord)
+        });
+        
+        if (response.ok) {
+            //alert("저장 성공!");
+            // 입력칸 비우기
+            const msg = await response.text();
+            alert(msg);
+            document.getElementById('kanji').value = '';
+            document.getElementById('reading').value = '';
+            document.getElementById('meaning').value = '';
+        } else if (response.status === 400) {
+            const errorMsg = await response.text();
+            alert(errorMsg); // "이미 등록된 단어입니다." 출력
+            document.getElementById('kanji').value = '';
+            document.getElementById('reading').value = '';
+            document.getElementById('meaning').value = '';
+            return;
+        }
+        else {
+            alert("확인 실패 (서버 오류)");
+        }
+    } catch (e) {
+        console.error("확인 중 에러:", e);
         alert("서버와 통신할 수 없습니다.");
     }
 }
