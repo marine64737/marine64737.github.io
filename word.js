@@ -25,10 +25,10 @@ async function findAll() {
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             row.innerHTML = `
                 <td style="font-size: 48px;">${word.kanji}</td>
-                <td><span class="display: none;">${word.reading}</span>
+                <td><span class="hidden">${word.reading}</span>
                 <button onclick="revealCell(this)">보기</button></td>
                 <td style="text-align: left;">
-                <span class="display: none;">${word.meaning}</span>
+                <span class="hidden">${word.meaning}</span>
                 <button onclick="revealCell(this)">보기</button></td>
             `;
             
@@ -100,10 +100,10 @@ async function saveWord() {
 }
 function revealCell(btn) {
     // 1. 버튼 바로 앞에 있는 요소(span)를 찾음
-    const content = btn.previousElementSibling;
+    const target = btn.previousElementSibling;
     
     // 2. 숨김 클래스 제거
-    content.style.display = 'inline';
+    target.classList.remove('hidden');
     
     // 3. 누른 버튼만 삭제
     btn.remove();
