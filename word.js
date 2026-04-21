@@ -108,7 +108,7 @@ async function checkWord() {
 
     if (kanji === "") kanji = null;
     if (reading === "") reading = null;
-    const newWord = { kanji, reading, null };
+    const newWord = { kanji, reading };
 
     try {
         const response = await fetch(uri, { // API 저장 경로에 맞게 수정
