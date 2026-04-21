@@ -27,7 +27,7 @@ async function findAll() {
                 <td style="font-size: 48px;">${word.kanji}</td>
                 <td><span style="font-size: 20px;" class="hidden">${word.reading}</span>
                 <button onclick="revealCell(this)">보기</button></td>
-                <td><span style="text-align: left;" class="hidden">${word.meaning}</span>
+                <td style="text-align: left;"><span class="hidden">${word.meaning}</span>
                 <button onclick="revealCell(this)">보기</button></td>
             `;
             
