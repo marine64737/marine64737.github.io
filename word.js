@@ -144,9 +144,6 @@ async function checkWord() {
             msgArea.innerText = msg;
             msgArea.style.color = "green";
             setTimeout(() => { msgArea.innerText = ""; }, 3000);
-            document.getElementById('kanji').value = '';
-            document.getElementById('reading').value = '';
-            document.getElementById('meaning').value = '';
         } else if (response.status === 400) {
             const errorMsg = await response.text();
             const msgArea = document.getElementById('message-area');
