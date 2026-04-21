@@ -98,17 +98,16 @@ async function saveWord() {
 }
 async function checkWord() {
     const uri =  "https://arguably-harmonics-swab.ngrok-free.dev/word/check";
-    const kanji = document.getElementById('kanji').value;
-    const reading = document.getElementById('reading').value;
+    const kanji = document.getElementById('kanji').value || null;
+    const reading = document.getElementById('reading').value || null;
+    const meaning = document.getElementById('meaning').value || null;
 
     if(!kanji && !reading) {
         alert("단어를 입력해주세요!");
         return;
     }
 
-    if (kanji === "") kanji = null;
-    if (reading === "") reading = null;
-    const newWord = { kanji, reading };
+    const newWord = { kanji, reading, meaning };
 
     try {
         const response = await fetch(uri, { // API 저장 경로에 맞게 수정
