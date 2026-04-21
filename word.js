@@ -97,6 +97,7 @@ async function saveWord() {
             const msgArea = document.getElementById('message-area');
             msgArea.innerText = "저장 성공!";
             msgArea.style.color = "green";
+            setTimeout(() => { msgArea.innerText = ""; }, 3000);
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
@@ -141,6 +142,7 @@ async function checkWord() {
             const msgArea = document.getElementById('message-area');
             msgArea.innerText = msg;
             msgArea.style.color = "green";
+            setTimeout(() => { msgArea.innerText = ""; }, 3000);
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
@@ -149,6 +151,7 @@ async function checkWord() {
             const msgArea = document.getElementById('message-area');
             msgArea.innerText = errorMsg;
             msgArea.style.color = "red"; // "이미 등록된 단어입니다." 출력
+            setTimeout(() => { msgArea.innerText = ""; }, 3000);
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
