@@ -120,6 +120,7 @@ async function checkWord() {
         const msgArea = document.getElementById('message-area');
         msgArea.innerText = "단어를 입력해주세요!";
         msgArea.style.color = "red";
+        setTimeout(() => { msgArea.innerText = ""; }, 3000);
         return;
     }
 
