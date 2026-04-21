@@ -56,7 +56,12 @@ async function saveWord() {
     const meaning = document.getElementById('meaning').value;
 
     if(!kanji || !reading || !meaning) {
-        alert("모든 칸을 채워주세요!");
+        const msgArea = document.getElementById('message-area');
+        msgArea.innerText = "모든 칸을 채워주세요!";
+        msgArea.style.color = "red"; // 성공은 초록색
+        
+        // 3초 뒤에 메시지 사라지게 하기
+        setTimeout(() => { msgArea.innerText = ""; }, 3000);
         return;
     }
 
@@ -74,7 +79,12 @@ async function saveWord() {
 
         if (response.status === 400) {
             const errorMsg = await response.text();
-            alert(errorMsg); // "이미 등록된 단어입니다." 출력
+            const msgArea = document.getElementById('message-area');
+            msgArea.innerText = errorMsg;
+            msgArea.style.color = "red"; // 성공은 초록색
+            
+            // 3초 뒤에 메시지 사라지게 하기
+            setTimeout(() => { msgArea.innerText = ""; }, 3000); // "이미 등록된 단어입니다." 출력
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
@@ -84,6 +94,9 @@ async function saveWord() {
         if (response.ok) {
             //alert("저장 성공!");
             // 입력칸 비우기
+            const msgArea = document.getElementById('message-area');
+            msgArea.innerText = "저장 성공!";
+            msgArea.style.color = "green";
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
@@ -103,7 +116,9 @@ async function checkWord() {
     const meaning = document.getElementById('meaning').value || null;
 
     if(!kanji && !reading) {
-        alert("단어를 입력해주세요!");
+        const msgArea = document.getElementById('message-area');
+        msgArea.innerText = "단어를 입력해주세요!";
+        msgArea.style.color = "red";
         return;
     }
 
@@ -123,13 +138,17 @@ async function checkWord() {
             //alert("저장 성공!");
             // 입력칸 비우기
             const msg = await response.text();
-            alert(msg);
+            const msgArea = document.getElementById('message-area');
+            msgArea.innerText = msg;
+            msgArea.style.color = "green";
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
         } else if (response.status === 400) {
             const errorMsg = await response.text();
-            alert(errorMsg); // "이미 등록된 단어입니다." 출력
+            const msgArea = document.getElementById('message-area');
+            msgArea.innerText = errorMsg;
+            msgArea.style.color = "red"; // "이미 등록된 단어입니다." 출력
             document.getElementById('kanji').value = '';
             document.getElementById('reading').value = '';
             document.getElementById('meaning').value = '';
