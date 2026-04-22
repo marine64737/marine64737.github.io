@@ -205,17 +205,7 @@ async function searchWord() {
                 <span id="update-message" style="margin-left: 10px;"></span>
                 </div>
             `;
-            
-            listContainer.appendChild(row);
-            searchContainer.classList.remove('hidden');
-            searchContainer = `
-            <input type="text hidden" id="id-search">
-            <input type="text" id="kanji-search" placeholder="한자 (Kanji)">
-            <input type="text" id="reading-search" placeholder="읽기 (Reading)">
-            <input type="text" id="meaning-search" placeholder="의미 (Meaning)">
-            <button onclick="updateWord()">수정</button>
-            <span id="update-message" style="margin-left: 10px;"></span>
-        `;
+            });
         }
         else if (response.status === 400) {
             const msg = await response.text();
