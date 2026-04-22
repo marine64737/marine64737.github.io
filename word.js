@@ -184,14 +184,38 @@ async function searchWord() {
             body: JSON.stringify(kanji)
         });
         if (response.ok) {
-            const word = await response.json();
             const cancel = document.getElementById('cancel');
             cancel.classList.remove('hidden');
+            const words = await response.json(); // 데이터가 배열 형태라고 가정
+            // 기존 내용 비우기
+            searchContainer.innerHTML = ``;
+    
+            // 2. 데이터 반복문 돌리기
+            words.forEach(word => {
+            const row = document.createElement('tr');
+            
+            // API 구조: { kanji: "...", reading: "...", meaning: "..." }
+            searchContainer.innerHTML += `
+            <div class="word-edit-row" style="display: flex; gap: 10px; margin-bottom: 5px;">
+                <input type="text hidden" id="id-search">
+                <input type="text" id="kanji-search" placeholder="한자 (Kanji)">
+                <input type="text" id="reading-search" placeholder="읽기 (Reading)">
+                <input type="text" id="meaning-search" placeholder="의미 (Meaning)">
+                <button onclick="updateWord(this)">수정</button>
+                <span id="update-message" style="margin-left: 10px;"></span>
+                </div>
+            `;
+            
+            listContainer.appendChild(row);
             searchContainer.classList.remove('hidden');
-            document.getElementById('id-search').value = word.id;
-            document.getElementById('kanji-search').value = word.kanji;
-            document.getElementById('reading-search').value = word.reading;
-            document.getElementById('meaning-search').value = word.meaning;
+            searchContainer = `
+            <input type="text hidden" id="id-search">
+            <input type="text" id="kanji-search" placeholder="한자 (Kanji)">
+            <input type="text" id="reading-search" placeholder="읽기 (Reading)">
+            <input type="text" id="meaning-search" placeholder="의미 (Meaning)">
+            <button onclick="updateWord()">수정</button>
+            <span id="update-message" style="margin-left: 10px;"></span>
+        `;
         }
         else if (response.status === 400) {
             const msg = await response.text();
@@ -212,19 +236,23 @@ async function searchWord() {
 
 async function updateWord(){
     const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/update";
-    const id = document.getElementById('id-search').value;
-    const kanji = document.getElementById('kanji-search').value;
-    const reading = document.getElementById('reading-search').value;
-    const meaning = document.getElementById('meaning-search').value;
+    const row = btn.parentElement; // 버튼이 속한 div를 찾음
+    const inputs = row.querySelectorAll('input'); // 그 안의 모든 input 찾기
+
+    const updateData = {
+        id: inputs[0].value,      // hidden input
+        kanji: inputs[1].value,   // 첫 번째 text
+        reading: inputs[2].value, // 두 번째 text
+        meaning: inputs[3].value  // 세 번째 text
+    };
     const searchContainer = document.getElementById('search-result');
 
-    if (!reading || !meaning) {
+    if (!updateData) {
         const msgArea = document.getElementById('update-message');
         msgArea.innerText = "다시 입력해주세요!";
         msgArea.style.color = "red";
         setTimeout(() => { msgArea.innerText = ""; }, 3000);
     }
-    const word = {id, kanji, reading, meaning};
     try{
         const response = await fetch(uri, {
             method: 'POST',
@@ -232,14 +260,14 @@ async function updateWord(){
                 'Content-Type': 'application/json',
                 'ngrok-skip-browser-warning': 'any'
             },
-            body: JSON.stringify(word)
+            body: JSON.stringify(updateData)
         });
         if (response.ok) {
             const msgArea = document.getElementById('update-message');
             msgArea.innerText = "수정되었습니다!";
             msgArea.style.color = "green";
             setTimeout(() => { msgArea.innerText = ""; }, 3000);
-            searchContainer.classList.add('hidden');
+            searchContainer.innerHTML = ``;
         }
          else if (response.status === 400) {
             const msg = await response.text();
