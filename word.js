@@ -165,7 +165,7 @@ async function checkWord() {
 
 async function searchWord() {
     const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/search";
-    const kanji = document.getElementById('search-kanji') || null;
+    const kanji = document.getElementById('search-kanji').value;
     const searchContainer = document.getElementById('search-result');
     if (!kanji) {
         const msgArea = document.getElementById('search-message');
