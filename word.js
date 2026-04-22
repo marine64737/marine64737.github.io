@@ -226,7 +226,7 @@ async function updateWord(){
     }
     const word = {id, kanji, reading, meaning};
     try{
-        const response = async fetch(uri, {
+        const response = await fetch(uri, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
