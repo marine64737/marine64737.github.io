@@ -201,7 +201,6 @@ async function searchWord() {
                 <input type="text" id="reading-search" value="${word.reading}" placeholder="읽기 (Reading)">
                 <input type="text" id="meaning-search" value="${word.meaning}" placeholder="의미 (Meaning)">
                 <button onclick="updateWord(this)">수정</button>
-                <span id="update-message" style="margin-left: 10px;"></span>
                 </div>
             `;
             });
@@ -237,7 +236,7 @@ async function updateWord(btn){
     const searchContainer = document.getElementById('search-result');
 
     if (!updateData) {
-        const msgArea = document.getElementById('update-message');
+        const msgArea = document.getElementById('search-message');
         msgArea.innerText = "다시 입력해주세요!";
         msgArea.style.color = "red";
         setTimeout(() => { msgArea.innerText = ""; }, 3000);
@@ -252,7 +251,7 @@ async function updateWord(btn){
             body: JSON.stringify(updateData)
         });
         if (response.ok) {
-            const msgArea = document.getElementById('update-message');
+            const msgArea = document.getElementById('search-message');
             msgArea.innerText = "수정되었습니다!";
             msgArea.style.color = "green";
             setTimeout(() => { msgArea.innerText = ""; }, 3000);
