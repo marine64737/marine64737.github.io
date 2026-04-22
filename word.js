@@ -111,9 +111,9 @@ async function saveWord() {
 }
 async function checkWord() {
     const uri =  "https://arguably-harmonics-swab.ngrok-free.dev/word/check";
-    const kanji = document.getElementById('kanji').value || null;
-    const reading = document.getElementById('reading').value || null;
-    const meaning = document.getElementById('meaning').value || null;
+    const kanji = document.getElementById('kanji').value;
+    const reading = document.getElementById('reading').value;
+    const meaning = document.getElementById('meaning').value;
 
     if(!kanji && !reading) {
         const msgArea = document.getElementById('message-area');
@@ -161,6 +161,107 @@ async function checkWord() {
         console.error("확인 중 에러:", e);
         alert("서버와 통신할 수 없습니다.");
     }
+}
+
+async function searchWord() {
+    const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/search";
+    const kanji = document.getElementById('search-kanji') || null;
+    const searchContainer = document.getElementById('search-result');
+    if (!kanji) {
+        const msgArea = document.getElementById('search-message');
+        msgArea.innerText= "단어를 입력해주세요!";
+        msgArea.stle.color = "red";
+        setTimeout(() => { msgArea.innerText = ""; }, 3000);
+        return;
+    }
+    try {
+        const response = await fetch(uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'any'
+            },
+            body: JSON.stringify(kanji)
+        });
+        if (response.ok) {
+            const word = await response.json();
+            const cancel = document.getElementById('cancel');
+            cancel.classList.remove('hidden');
+            searchContainer.classList.remove('hidden');
+            document.getElementById('id-search').value = word.id;
+            document.getElementById('kanji-search').value = word.kanji;
+            document.getElementById('reading-search').value = word.reading;
+            document.getElementById('meaning-search').value = word.meaning;
+        }
+        else if (response.status === 400) {
+            const msg = await response.text();
+            const msgArea = document.getElementById('search-message');
+            msgArea.innerText = msg;
+            msgArea.style.color = "red";
+            setTimeout(() => { msgArea.innerText = ""; }, 3000);
+        }
+        else {
+            alert("확인 실패 (서버 오류)");
+        }
+    }
+    catch (e) {
+        console.error("확인 중 에러:", e);
+        alert("서버와 통신할 수 없습니다.");
+    }
+}
+
+async function updateWord(){
+    const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/update";
+    const id = document.getElementById('id-search').value;
+    const kanji = document.getElementById('kanji-search').value;
+    const reading = document.getElementById('reading-search').value;
+    const meaning = document.getElementById('meaning-search').value;
+    const searchContainer = document.getElementById('search-result');
+
+    if (!reading || !meaning) {
+        const msgArea = document.getElementById('update-message');
+        msgArea.innerText = "다시 입력해주세요!";
+        msgArea.style.color = "red";
+        setTimeout(() => { msgArea.innerText = ""; }, 3000);
+    }
+    const word = {id, kanji, reading, meaning};
+    try{
+        const response = async fetch(uri, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'any'
+            },
+            body: JSON.stringify(word);
+        });
+        if (response.ok) {
+            const msgArea = document.getElementById('update-message');
+            msgArea.innerText = "수정되었습니다!";
+            msgArea.style.color = "green";
+            setTimeout(() => { msgArea.innerText = ""; }, 3000);
+            searchContainer.classList.add('hidden');
+        }
+         else if (response.status === 400) {
+            const msg = await response.text();
+            const msgArea = document.getElementById('search-message');
+            msgArea.innerText = msg;
+            msgArea.style.color = "red";
+            setTimeout(() => { msgArea.innerText = ""; }, 3000);
+        }
+        else {
+            alert("확인 실패 (서버 오류)");
+        }
+    }
+    catch (e) {
+        console.error("확인 중 에러:", e);
+        alert("서버와 통신할 수 없습니다.");
+    }
+}
+
+function cancel(btn){
+    const target = document.getElementById('search-result');
+    target.classList.add('hidden');
+    btn.classList.add('hidden');
 }
 function revealCell(btn) {
     // 1. 버튼 바로 앞에 있는 요소(span)를 찾음
