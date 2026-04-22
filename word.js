@@ -172,6 +172,7 @@ async function searchWord() {
         msgArea.innerText= "단어를 입력해주세요!";
         msgArea.stle.color = "red";
         setTimeout(() => { msgArea.innerText = ""; }, 3000);
+        searchContainer.innerHTML = ``;
         return;
     }
     try {
