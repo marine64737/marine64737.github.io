@@ -195,8 +195,8 @@ async function searchWord() {
             
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             searchContainer.innerHTML += `
-            <div class="word-edit-row" style="display: flex; gap: 10px; margin-bottom: 5px;">
-                <input type="text hidden" value="${word.id}" id="id-search">
+            <div class="word-edit-row">
+                <input type="hidden" value="${word.id}" id="id-search">
                 <input type="text" id="kanji-search" value="${word.kanji}" placeholder="한자 (Kanji)">
                 <input type="text" id="reading-search" value="${word.reading}" placeholder="읽기 (Reading)">
                 <input type="text" id="meaning-search" value="${word.meaning}" placeholder="의미 (Meaning)">
