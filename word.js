@@ -211,6 +211,7 @@ async function searchWord() {
             msgArea.innerText = msg;
             msgArea.style.color = "red";
             setTimeout(() => { msgArea.innerText = ""; }, 3000);
+            searchContainer.innerHTML = ``;
         }
         else {
             alert("확인 실패 (서버 오류)");
