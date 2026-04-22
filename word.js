@@ -223,7 +223,7 @@ async function searchWord() {
     }
 }
 
-async function updateWord(){
+async function updateWord(btn){
     const uri = "https://arguably-harmonics-swab.ngrok-free.dev/word/update";
     const row = btn.parentElement; // 버튼이 속한 div를 찾음
     const inputs = row.querySelectorAll('input'); // 그 안의 모든 input 찾기
