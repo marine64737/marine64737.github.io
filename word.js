@@ -213,6 +213,7 @@ async function searchWord() {
             msgArea.style.color = "red";
             setTimeout(() => { msgArea.innerText = ""; }, 3000);
             searchContainer.innerHTML = ``;
+            cancel.classList.add('hidden');
         }
         else {
             alert("확인 실패 (서버 오류)");
@@ -258,6 +259,7 @@ async function updateWord(btn){
             msgArea.style.color = "green";
             setTimeout(() => { msgArea.innerText = ""; }, 3000);
             searchContainer.innerHTML = ``;
+            cancel.classList.add('hidden');
         }
          else if (response.status === 400) {
             const msg = await response.text();
