@@ -277,7 +277,7 @@ async function updateWord(btn){
 
 function cancel(btn){
     const target = document.getElementById('search-result');
-    target.classList.add('hidden');
+    target.innerHTML = ``;
     btn.classList.add('hidden');
 }
 function revealCell(btn) {
