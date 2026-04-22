@@ -232,7 +232,7 @@ async function updateWord(){
                 'Content-Type': 'application/json',
                 'ngrok-skip-browser-warning': 'any'
             },
-            body: JSON.stringify(word);
+            body: JSON.stringify(word)
         });
         if (response.ok) {
             const msgArea = document.getElementById('update-message');
