@@ -181,7 +181,7 @@ async function searchWord() {
                 'Content-Type': 'application/json',
                 'ngrok-skip-browser-warning': 'any'
             },
-            body: JSON.stringify({ kanji: kanji)
+            body: JSON.stringify({ kanji: kanji })
         });
         if (response.ok) {
             const cancel = document.getElementById('cancel');
