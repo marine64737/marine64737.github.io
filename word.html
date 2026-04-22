@@ -46,14 +46,21 @@
 <body>
     <h1>Word</h1>
     <h2>일본어 단어장 <span id="total-count" style="font-size: 0.5em; color: gray;"></span></h2>
-    <h2>단어 추가</h2>
     <div class="input-group">
+        <h2>단어 추가</h2>
         <input type="text" id="kanji" placeholder="한자 (Kanji)">
         <input type="text" id="reading" placeholder="읽기 (Reading)">
         <input type="text" id="meaning" placeholder="의미 (Meaning)">
         <button onclick="checkWord()">중복확인</button>
         <button onclick="saveWord()">저장하기</button>
         <span id="message-area" style="margin-left: 10px;"></span>
+    </div>
+    <div class="search-group">
+        <h2>단어 수정</h2>
+        <input type="text" id="kanji" placeholder="한자 (Kanji)">
+        <button onclick="searchWord()">검색</button>
+        <span id="search-message" style="margin-left: 10px;"></span>
+    </div>
     </div>
     <table border="1">
     <thead>
