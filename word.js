@@ -192,15 +192,14 @@ async function searchWord() {
     
             // 2. 데이터 반복문 돌리기
             words.forEach(word => {
-            const row = document.createElement('tr');
             
             // API 구조: { kanji: "...", reading: "...", meaning: "..." }
             searchContainer.innerHTML += `
             <div class="word-edit-row" style="display: flex; gap: 10px; margin-bottom: 5px;">
-                <input type="text hidden" id="id-search">
-                <input type="text" id="kanji-search" placeholder="한자 (Kanji)">
-                <input type="text" id="reading-search" placeholder="읽기 (Reading)">
-                <input type="text" id="meaning-search" placeholder="의미 (Meaning)">
+                <input type="text hidden" value="${word.id}" id="id-search">
+                <input type="text" id="kanji-search" value="${word.kanji}" placeholder="한자 (Kanji)">
+                <input type="text" id="reading-search" value="${word.reading}" placeholder="읽기 (Reading)">
+                <input type="text" id="meaning-search" value="${word.meaning}" placeholder="의미 (Meaning)">
                 <button onclick="updateWord(this)">수정</button>
                 <span id="update-message" style="margin-left: 10px;"></span>
                 </div>
