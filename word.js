@@ -205,7 +205,7 @@ async function searchWord() {
             `;
             });
         }
-        else if (response.status === 400) {
+        else if (response.status === 404) {
             const msg = await response.text();
             const msgArea = document.getElementById('search-message');
             msgArea.innerText = msg;
